@@ -11,6 +11,6 @@ const userRouter = express.Router();
 userRouter.get('/users/:username', saveGitHubUser);
 userRouter.get('/users/:username/repos', fetchUserRepos);
 userRouter.get('/users/:username/followers', fetchUserFollowers);
-userRouter.get('/repos/:owner/:repo', fetchRepoDetails);
+userRouter.get('/repos/:username/:repoName', fetchRepoDetails);
 
 module.exports = userRouter;
