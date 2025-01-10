@@ -37,7 +37,7 @@ export const RepoList = () => {
         <img
           src={userData.avatar_url}
           alt={`${userData.username}'s avatar`}
-          style={{ width: '80px', height: '80px', borderRadius: '50%', marginRight: '20px' }}
+          style={{ width: '130px', height: '130px', borderRadius: '50%', marginRight: '20px' }}
         />
         <div style={{textAlign:'left'}}>
           <h2>{userData.username}</h2>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsFillPatchCheckFill } from "react-icons/bs";
 
 export const RepoCard = ({ repo, onClick }) => {
   return (
@@ -6,12 +7,12 @@ export const RepoCard = ({ repo, onClick }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        border: '1px solid #f2ecec',
-        borderRadius: '4px',
+        // border: '1px solid #f2ecec',
+        // borderRadius: '4px',
         padding: '10px',
         marginBottom: '10px',
         cursor: 'pointer',
-        height:'80px'
+        // height:'100px'
       }}
       onClick={onClick}
     >
@@ -26,7 +27,7 @@ export const RepoCard = ({ repo, onClick }) => {
         }}
       />
       <div style={{ textAlign:'left',  padding:'5px'}}>
-        <h4 style={{ margin: '0 0 5px', fontSize: '1.2rem', color: '#3e76f0' }}>{repo.name} </h4>
+        <h4 style={{ margin: '0 0 5px', fontSize: '1.2rem', color: '#3e76f0' }}>{repo.name}  <BsFillPatchCheckFill style={{color:'green'}} /> </h4>
         <p style={{ margin: '0', color: '#797676' }}>
           {repo.description || 'No description provided'}
         </p>
