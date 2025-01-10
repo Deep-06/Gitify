@@ -1,8 +1,12 @@
 // FollowerCard.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const FollowerCard = ({ follower }) => {
   return (
+    <>
+    <Link to={`/repos/${follower.login}`} style={{ textDecoration: 'none', color: '#007BFF' }}>
+
     <div
       style={{
         display: 'flex',
@@ -14,6 +18,7 @@ const FollowerCard = ({ follower }) => {
         cursor: 'pointer',
       }}
     >
+
       <img
         src={follower.avatar_url}
         alt={`${follower.login}'s avatar`}
@@ -26,11 +31,11 @@ const FollowerCard = ({ follower }) => {
       />
       <div>
         <h4>{follower.login}</h4>
-        <a href={follower.html_url} target="_blank" rel="noopener noreferrer">
-          View Profile
-        </a>
       </div>
+     
     </div>
+    </Link>
+    </>
   );
 };
 

@@ -2,11 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export const RepoDescription = () => {
-  const repo = useSelector((state) => state.selectedRepo); // The currently selected repository
+  const repo = useSelector((state) => state.selectedRepo); 
 
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+      
       <h2>{repo.name}</h2>
       <p>
         <strong>Description:</strong> {repo.description || 'No description provided'}

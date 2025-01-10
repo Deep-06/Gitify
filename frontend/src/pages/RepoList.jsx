@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectRepo } from '../redux/action';
+import { fetchUserData, selectRepo } from '../redux/action';
 import { RepoCard } from '../components/RepoCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export const RepoList = () => {
   const userData = useSelector((state) => state.userData); // User's GitHub data
   const repos = useSelector((state) => state.repos); // List of repositories
   const navigate = useNavigate();
+  const { username } = useParams();
   const dispatch = useDispatch();
 
   console.log(userData);
   console.log(repos);
 
-  if (!userData) {
-    return <div>Loading user data...</div>;  
-  }
+  useEffect(() => {
+    if (username) {
+      dispatch(fetchUserData(username));
+    }
+  }, [dispatch, username]);
 
   const handleRepoClick = (repo) => {
     dispatch(selectRepo(repo));
     navigate('/repo_desc');
-    console.log(`Navigating to details of repo: ${repo.name}`);
   };
+
+  if (!userData) {
+    return <div>Loading user data...</div>;
+  }
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
@@ -42,6 +48,12 @@ export const RepoList = () => {
           <p>
             <strong>Public Repos:</strong> {userData.public_repos}
           </p>
+          <p>
+            <strong>Following:</strong> {userData.following}
+          </p>
+          <p>
+            <strong>Followers:</strong> {userData.followers}
+          </p>
           {/* Button/Link to Followers Page */}
           <Link to={`/followers/${userData.username}`} style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '4px', textDecoration: 'none' }}>
             View Followers
@@ -51,13 +63,18 @@ export const RepoList = () => {
 
       {/* Repository List */}
       <h3>Repositories</h3>
+
       <ul style={{ listStyle: 'none', padding: '0' }}>
-          {repos?.map((repo) => (
-            <li key={repo.id} style={{ marginBottom: '10px' }}>
-              <RepoCard repo={repo} onClick={() => handleRepoClick(repo)} />
+      {repos.length === 0 ? (
+        <h4>No repository found</h4>
+      ) : (
+        repos.map((repo) => (
+            <li key={repo.id} onClick={() => handleRepoClick(repo)} style={{ marginBottom: '10px' }}>
+              <RepoCard repo={repo}  />
             </li>
           ))
-        }
+      )}
+          
       </ul>
     </div>
   );

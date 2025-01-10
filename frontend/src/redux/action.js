@@ -24,9 +24,16 @@ export const fetchUserData = (username) => async (dispatch) => {
   }
 };
 
-
+export const selectRepo = (repo) => async (dispatch) => {
+    try{
+        dispatch({type: SELECT_REPO, payload: repo})
+    }catch(error){
+        console.error(error);
+    }  
+};
 
 export const fetchRepoDetails = (username, repoName) => async (dispatch) => {
+
   try {
     const { data } = await axios.get(`${API_BASE_URL}/repos/${username}/${repoName}`);
     dispatch({ type: SET_REPO_DETAILS, payload: data });
@@ -36,18 +43,14 @@ export const fetchRepoDetails = (username, repoName) => async (dispatch) => {
 };
 
 export const fetchFollowers = (username) => async (dispatch) => {
+  console.log(username)
   try {
     const { data } = await axios.get(`${API_BASE_URL}/users/${username}/followers`);
+    console.log(data);
     dispatch({ type: SET_FOLLOWERS, payload: data });
   } catch (error) {
     console.error(error);
   }
 };
 
-export const selectRepo = (repo) => async (dispatch) => {
-    try{
-        dispatch({type: SELECT_REPO, payload: repo})
-    }catch(error){
-        console.error(error);
-    }  
-};
+

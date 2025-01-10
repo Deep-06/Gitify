@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     try {
       await dispatch(fetchUserData(username));
-      navigate('/repo_list');
+      navigate(`/repos/${username}`);
     } catch (error) {
       setError('Failed to fetch user data. Please try again.');
     } finally {

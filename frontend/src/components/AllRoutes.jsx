@@ -10,7 +10,7 @@ export const AllRoutes = () => {
     <Routes>
 
       <Route path='/' element={<Dashboard />} />
-      <Route path='/repo_list' element={<RepoList />} />
+      <Route path='/repos/:username' element={<RepoList />} />
       <Route path='/repo_desc' element={<RepoDescription />} />
       <Route path='/followers/:username' element={<FollowerList />} />
 
