@@ -6,11 +6,12 @@ export const RepoCard = ({ repo, onClick }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        border: '1px solid #ccc',
+        border: '1px solid #f2ecec',
         borderRadius: '4px',
         padding: '10px',
         marginBottom: '10px',
         cursor: 'pointer',
+        height:'80px'
       }}
       onClick={onClick}
     >
@@ -24,9 +25,9 @@ export const RepoCard = ({ repo, onClick }) => {
           marginRight: '10px',
         }}
       />
-      <div style={{ flex: 1 }}>
-        <h4 style={{ margin: '0 0 5px', fontSize: '1.2rem' }}>{repo.name}</h4>
-        <p style={{ margin: '0', color: '#555' }}>
+      <div style={{ textAlign:'left',  padding:'5px'}}>
+        <h4 style={{ margin: '0 0 5px', fontSize: '1.2rem', color: '#3e76f0' }}>{repo.name} </h4>
+        <p style={{ margin: '0', color: '#797676' }}>
           {repo.description || 'No description provided'}
         </p>
       </div>

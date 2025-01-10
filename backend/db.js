@@ -5,9 +5,7 @@ dotenv.config();
 
 const connectDB = () =>{
     mongoose
-    .connect(process.env.MONGO_URL, {
-       dbName: "Gitify",
-    })
+    .connect(process.env.MONGO_URL)
     .then(() => {
         console.log('connected to database')
     })

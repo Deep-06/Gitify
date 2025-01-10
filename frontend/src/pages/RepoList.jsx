@@ -31,17 +31,19 @@ export const RepoList = () => {
   }
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ padding: '20px', maxWidth: '80%', margin: '0 auto' }}>
       {/* User Info */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', justifyContent:'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <img
           src={userData.avatar_url}
           alt={`${userData.username}'s avatar`}
           style={{ width: '80px', height: '80px', borderRadius: '50%', marginRight: '20px' }}
         />
-        <div>
+        <div style={{textAlign:'left'}}>
           <h2>{userData.username}</h2>
-          <p>{userData.bio || 'No bio available'}</p>
+          <p style={{width:'200px'}}>{userData.bio || 'No bio available'}</p>
+         </div>
+         <div style={{textAlign:'left'}}>
           <p>
             <strong>Location:</strong> {userData.location || 'Not specified'}
           </p>
@@ -51,6 +53,8 @@ export const RepoList = () => {
           <p>
             <strong>Following:</strong> {userData.following}
           </p>
+          </div>
+          <div style={{textAlign:'left', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
           <p>
             <strong>Followers:</strong> {userData.followers}
           </p>
@@ -64,19 +68,19 @@ export const RepoList = () => {
       {/* Repository List */}
       <h3>Repositories</h3>
 
-      <ul style={{ listStyle: 'none', padding: '0' }}>
+      <div style={{display:'grid', 
+            gridTemplateColumns:"repeat(2, 1fr)" , gap:'15px'}}>
       {repos.length === 0 ? (
         <h4>No repository found</h4>
       ) : (
         repos.map((repo) => (
-            <div key={repo.id} onClick={() => handleRepoClick(repo)} style={{ marginBottom: '10px', display:'grid', 
-            gridTemplateColumns:'1fr 1fr' , gap:'15px'}}>
+            <div key={repo.id} onClick={() => handleRepoClick(repo)} >
               <RepoCard repo={repo}  />
             </div>
           ))
       )}
           
-      </ul>
+      </div>
     </div>
   );
 };
