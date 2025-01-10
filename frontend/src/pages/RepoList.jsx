@@ -69,7 +69,8 @@ export const RepoList = () => {
         <h4>No repository found</h4>
       ) : (
         repos.map((repo) => (
-            <div key={repo.id} onClick={() => handleRepoClick(repo)} style={{ marginBottom: '10px' }}>
+            <div key={repo.id} onClick={() => handleRepoClick(repo)} style={{ marginBottom: '10px', display:'grid', 
+            gridTemplateColumns:'1fr 1fr' , gap:'15px'}}>
               <RepoCard repo={repo}  />
             </div>
           ))

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { connectDB } = require('./db');
 const userRouter = require('./routes/userRoutes');
 
-dotenv.config();
+dotenv.config({path:'./.env'});
 
 const PORT = process.env.PORT || 8080;
 const app = express();
