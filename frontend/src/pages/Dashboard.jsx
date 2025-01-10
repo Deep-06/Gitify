@@ -44,7 +44,7 @@ export const Dashboard = () => {
       >
         <input
           type="text"
-          placeholder="Enter username"
+          placeholder="Enter Github username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           style={{
