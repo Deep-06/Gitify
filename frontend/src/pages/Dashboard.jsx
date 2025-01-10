@@ -30,8 +30,9 @@ export const Dashboard = () => {
   };
 
   return (
+    <div style={{paddingTop:'100px'}}>
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>GitHub</h1>
+      <h1>Gitify</h1>
       <div
         style={{
           display: 'flex',
@@ -43,7 +44,7 @@ export const Dashboard = () => {
       >
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           style={{
@@ -75,6 +76,7 @@ export const Dashboard = () => {
 
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
+    </div>
     </div>
   );
 };

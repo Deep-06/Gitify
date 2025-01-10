@@ -6,28 +6,45 @@ export const RepoDescription = () => {
 
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ padding: '20px', maxWidth: '80%', margin: '0 auto',display:'flex', justifyContent:'space-between', fontSize:'20px' }}>
+      <div style={{width:'30%'}}>
+      <img
+        src={repo.owner.avatar_url}
+        alt={`${repo.owner.login}'s avatar`}
+        style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '20px' }}
+      />
+      <div style={{textAlign:'left', paddingLeft:'10%'}}>
+      <p>
+        <strong>Owner:</strong> {repo.owner.login}
+      </p>
+      <p>
+        <strong>Language:</strong> {repo.language || 'Not specified'}
+      </p>
+      <p>
+        <strong>Visibility:</strong> {repo.visibility}
+      </p>
+      </div>
       
-      <h2>{repo.name}</h2>
+      </div>
+
+      <div style={{textAlign:'left', width:'70%'}}>
+      <h2 style={{fontSize:'36px'}}>{repo.name}</h2>
+      <button style={{
+            padding: '10px',
+            width: '250px',
+            marginRight: '10px',
+            backgroundColor: '#0d7f25',
+            color: '#fff',
+            fontSize: '18px',
+            border: '1px solid #fff',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}>Set up a plan</button>
       <p>
         <strong>Description:</strong> {repo.description || 'No description provided'}
       </p>
       <p>
-        <strong>Owner:</strong> {repo.owner.login}
-      </p>
-      <img
-        src={repo.owner.avatar_url}
-        alt={`${repo.owner.login}'s avatar`}
-        style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '20px' }}
-      />
-      <p>
-        <strong>Visibility:</strong> {repo.visibility}
-      </p>
-      <p>
         <strong>Default Branch:</strong> {repo.default_branch}
-      </p>
-      <p>
-        <strong>Language:</strong> {repo.language || 'Not specified'}
       </p>
       <p>
         <strong>Forks:</strong> {repo.forks_count}
@@ -50,6 +67,7 @@ export const RepoDescription = () => {
       <p>
         <strong>Repository URL:</strong> <a href={repo.html_url}>{repo.html_url}</a>
       </p>
+      </div>
 
     </div>
   );
