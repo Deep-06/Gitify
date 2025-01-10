@@ -2,7 +2,7 @@ import axios from 'axios';
 import { SELECT_REPO, SET_FOLLOWERS, SET_REPO_DETAILS, SET_REPOS, SET_USER_DATA } from './actionTypes';
 
 const API_BASE_URL = 'http://localhost:8080';
-//const API_BASE_URL =  "https://gitify.onrender.com"
+// const API_BASE_URL =  "https://gitify.onrender.com"
 
 
 export const fetchUserData = (username) => async (dispatch) => {
