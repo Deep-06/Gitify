@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Dashboard } from '../pages/Dashboard';
 import { RepoList } from '../pages/RepoList';
 import { RepoDescription } from '../pages/RepoDescription';
-import { FollowerList } from '../pages/FollowerList';
+import  FollowerList  from '../pages/FollowerList';
 
 export const AllRoutes = () => {
   return (
@@ -12,7 +12,7 @@ export const AllRoutes = () => {
       <Route path='/' element={<Dashboard />} />
       <Route path='/repo_list' element={<RepoList />} />
       <Route path='/repo_desc' element={<RepoDescription />} />
-      <Route path='/follower' element={<FollowerList />} />
+      <Route path='/followers/:username' element={<FollowerList />} />
 
     </Routes>
   )
