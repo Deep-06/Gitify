@@ -21,6 +21,7 @@ const saveGitHubUser = async (req, res) => {
   }
   try {
     const existingUser = await UserModel.findOne({ username, softDeleted: false });
+    
     if (existingUser) return res.status(200).json(existingUser);
 
     const githubData = await fetchGitHubData(`https://api.github.com/users/${username}`);

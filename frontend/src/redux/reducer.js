@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export const rootReducer = (state = initialState, action) => {
-  console.log('Dispatching action:', action);
+//  console.log('Dispatching action:', action);
   switch (action.type) {
     case SET_USER_DATA:
       return { ...state, userData: action.payload };
