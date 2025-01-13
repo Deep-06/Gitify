@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { SELECT_REPO, SET_FOLLOWERS, SET_REPO_DETAILS, SET_REPOS, SET_USER_DATA } from './actionTypes';
+import { SELECT_REPO, SET_FOLLOWERS, SET_REPO_DETAILS, SET_REPOS, SET_USER_DATA, UPDATE_USER_DATA } from './actionTypes';
 
-//const API_BASE_URL = 'http://localhost:8080';
- const API_BASE_URL =  "https://gitify.onrender.com"
+const API_BASE_URL = 'http://localhost:8080';
+ //const API_BASE_URL =  "https://gitify.onrender.com"
 
 
 export const fetchUserData = (username) => async (dispatch) => {
@@ -53,4 +53,23 @@ export const fetchFollowers = (username) => async (dispatch) => {
   }
 };
 
+
+export const updateUserData = (username, updates) => async (dispatch) => {
+  try {
+    const response = await axios.patch(`/users/${username}`, updates);
+    dispatch({ type: UPDATE_USER_DATA, payload: response.data });
+  } catch (error) {
+    console.error('Error updating user data:', error);
+  }
+};
+
+export const softDeleteUser = (username) => async (dispatch) => {
+  try {
+    await axios.delete(`/users/${username}`);
+    // Clear user data after soft delete
+    dispatch({ type: SET_USER_DATA, payload: null });
+  } catch (error) {
+    console.error('Error soft deleting user:', error);
+  }
+};
 

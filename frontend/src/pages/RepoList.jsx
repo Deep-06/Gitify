@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserData, selectRepo } from '../redux/action';
+import { fetchUserData, selectRepo, softDeleteUser, updateUserData } from '../redux/action';
 import { RepoCard } from '../components/RepoCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export const RepoList = () => {
-  const userData = useSelector((state) => state.userData); // User's GitHub data
-  const repos = useSelector((state) => state.repos); // List of repositories
+  const userData = useSelector((state) => state.userData); 
+  const repos = useSelector((state) => state.repos); 
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [updateData, setUpdateData] = useState({ bio: '', location: '' });
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
 
-  console.log(userData);
-  console.log(repos);
+  // console.log(userData);
+  // console.log(repos);
 
   useEffect(() => {
     if (username) {
@@ -21,10 +23,25 @@ export const RepoList = () => {
     }
   }, [dispatch, username]);
 
+
+
   const handleRepoClick = (repo) => {
     dispatch(selectRepo(repo));
     navigate('/repo_desc');
   };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(updateUserData(username, updateData));
+    setShowUpdateForm(false);
+  };
+
+  const handleSoftDelete = async () => {
+    await dispatch(softDeleteUser(username));
+    navigate('/');
+  };
+
+
 
   if (!userData) {
     return <div>Loading user data...</div>;
@@ -57,6 +74,14 @@ export const RepoList = () => {
             <strong>Followers:</strong> {userData.followers}
           </p>
           </div>
+
+          <div style={{textAlign:'left', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+            <button onClick={handleSoftDelete}  style={{ padding: '12px', border: '1px solid #ccc', 
+          borderRadius: '4px', textDecoration: 'none', fontSize:'15px' , backgroundColor:'green',color:'white'}}>SoftDelete</button>
+            <button onClick={() => setShowUpdateForm(!showUpdateForm)}  style={{ padding: '12px', border: '1px solid #ccc', 
+          borderRadius: '4px', textDecoration: 'none', fontSize:'15px' , backgroundColor:'green',color:'white'}}>Update</button>
+          </div>
+
           <div style={{textAlign:'left', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
           {/* Button/Link to Dashboard Page */}
           <Link to={`/`} style={{ padding: '12px', border: '1px solid #ccc', 
@@ -70,6 +95,40 @@ export const RepoList = () => {
           </Link>
         </div>
       </div>
+
+      {/* Update form */}
+      {showUpdateForm && (
+        <div style={{}}>
+        <form onSubmit={handleUpdateSubmit} style={{ marginBottom: '20px', }}>
+       
+          <label style={{textAlign:'left'}}>
+            Bio:
+            <input
+              type="text"
+              value={updateData.bio}
+              onChange={(e) => setUpdateData({ ...updateData, bio: e.target.value })}
+              style={{ marginLeft: '10px', marginBottom: '10px', textAlign:'left' }}
+            />
+          </label>
+          <br />
+          <label style={{textAlign:'left'}}>
+            Location:
+            <input
+              type="text"
+              value={updateData.location}
+              onChange={(e) => setUpdateData({ ...updateData, location: e.target.value })}
+              style={{ marginLeft: '10px' }}
+            />
+          </label>
+          <br />
+          <button type="submit" style={{ padding: '10px', marginTop: '10px', backgroundColor: 'green', color: 'white' }}>
+            Submit Updates
+          </button>
+         
+        </form>
+        </div>
+       
+      )}
 
       {/* Repository List */}
       <h3>Repositories</h3>

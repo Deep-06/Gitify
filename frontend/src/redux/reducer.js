@@ -3,7 +3,8 @@ import {
   SET_REPOS,
   SET_REPO_DETAILS,
   SET_FOLLOWERS,
-  SELECT_REPO
+  SELECT_REPO,
+  UPDATE_USER_DATA
 } from './actionTypes.js';
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
 };
 
 export const rootReducer = (state = initialState, action) => {
-//  console.log('Dispatching action:', action);
+  //  console.log('Dispatching action:', action);
   switch (action.type) {
     case SET_USER_DATA:
       return { ...state, userData: action.payload };
@@ -27,6 +28,12 @@ export const rootReducer = (state = initialState, action) => {
       return { ...state, followers: action.payload };
     case SELECT_REPO:
       return { ...state, selectedRepo: action.payload };
+    case UPDATE_USER_DATA:
+      return {
+        ...state,
+        userData: { ...state.userData, ...action.payload },
+      };
+
     default:
       return state;
   }

@@ -4,3 +4,4 @@ export const SET_REPOS = 'SET_REPOS';
 export const SET_REPO_DETAILS = 'SET_REPO_DETAILS';
 export const SET_FOLLOWERS = 'SET_FOLLOWERS';
 export const SELECT_REPO='SELECT_REPO';
+export const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
