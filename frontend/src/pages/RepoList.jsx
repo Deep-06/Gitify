@@ -4,12 +4,12 @@ import { fetchUserData, selectRepo, softDeleteUser, updateUserData } from '../re
 import { RepoCard } from '../components/RepoCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { UpdateForm } from '../components/UpdateForm';
 
 export const RepoList = () => {
   const userData = useSelector((state) => state.userData); 
   const repos = useSelector((state) => state.repos); 
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [updateData, setUpdateData] = useState({ bio: '', location: '' });
+  const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -30,14 +30,13 @@ export const RepoList = () => {
     navigate('/repo_desc');
   };
 
-  const handleUpdateSubmit = async (e) => {
-    e.preventDefault();
-    await dispatch(updateUserData(username, updateData));
-    setShowUpdateForm(false);
+  const handleUpdate = (updates) => {
+    dispatch(updateUserData(userData.username, updates)); 
+    setShowForm(false); 
   };
 
   const handleSoftDelete = async () => {
-    await dispatch(softDeleteUser(username));
+    dispatch(softDeleteUser(username));
     navigate('/');
   };
 
@@ -78,7 +77,7 @@ export const RepoList = () => {
           <div style={{textAlign:'left', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
             <button onClick={handleSoftDelete}  style={{ padding: '12px', border: '1px solid #ccc', 
           borderRadius: '4px', textDecoration: 'none', fontSize:'15px' , backgroundColor:'green',color:'white'}}>SoftDelete</button>
-            <button onClick={() => setShowUpdateForm(!showUpdateForm)}  style={{ padding: '12px', border: '1px solid #ccc', 
+            <button onClick={() => setShowForm(!showForm)}  style={{ padding: '12px', border: '1px solid #ccc', 
           borderRadius: '4px', textDecoration: 'none', fontSize:'15px' , backgroundColor:'green',color:'white'}}>Update</button>
           </div>
 
@@ -97,37 +96,13 @@ export const RepoList = () => {
       </div>
 
       {/* Update form */}
-      {showUpdateForm && (
-        <div style={{}}>
-        <form onSubmit={handleUpdateSubmit} style={{ marginBottom: '20px', }}>
-       
-          <label style={{textAlign:'left'}}>
-            Bio:
-            <input
-              type="text"
-              value={updateData.bio}
-              onChange={(e) => setUpdateData({ ...updateData, bio: e.target.value })}
-              style={{ marginLeft: '10px', marginBottom: '10px', textAlign:'left' }}
-            />
-          </label>
-          <br />
-          <label style={{textAlign:'left'}}>
-            Location:
-            <input
-              type="text"
-              value={updateData.location}
-              onChange={(e) => setUpdateData({ ...updateData, location: e.target.value })}
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-          <br />
-          <button type="submit" style={{ padding: '10px', marginTop: '10px', backgroundColor: 'green', color: 'white' }}>
-            Submit Updates
-          </button>
-         
-        </form>
-        </div>
-       
+      {showForm && (
+        <UpdateForm
+          username={userData.username}
+          currentBio={userData.bio}
+          currentLocation={userData.location}
+          onUpdate={handleUpdate}
+        />
       )}
 
       {/* Repository List */}

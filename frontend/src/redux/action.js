@@ -56,16 +56,20 @@ export const fetchFollowers = (username) => async (dispatch) => {
 
 export const updateUserData = (username, updates) => async (dispatch) => {
   try {
-    const response = await axios.patch(`/users/${username}`, updates);
+    console.log('Sending update request:', username, updates);
+    const response = await axios.patch(`${API_BASE_URL}/users/${username}`, updates);
+    console.log('Update response:', response.data);
+
     dispatch({ type: UPDATE_USER_DATA, payload: response.data });
   } catch (error) {
-    console.error('Error updating user data:', error);
+    console.error('Error updating user data:', error.response || error.message);
   }
 };
 
+
 export const softDeleteUser = (username) => async (dispatch) => {
   try {
-    await axios.delete(`/users/${username}`);
+    await axios.delete(`${API_BASE_URL}/users/${username}`);
     // Clear user data after soft delete
     dispatch({ type: SET_USER_DATA, payload: null });
   } catch (error) {

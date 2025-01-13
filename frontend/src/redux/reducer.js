@@ -29,10 +29,9 @@ export const rootReducer = (state = initialState, action) => {
     case SELECT_REPO:
       return { ...state, selectedRepo: action.payload };
     case UPDATE_USER_DATA:
-      return {
-        ...state,
-        userData: { ...state.userData, ...action.payload },
-      };
+      console.log('Reducer received update:', action.payload);
+      return { ...state, userData: action.payload };
+
 
     default:
       return state;
